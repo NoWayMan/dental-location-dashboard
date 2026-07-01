@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>치과 개원 입지분석 대시보드</title>
+
+  <link rel="stylesheet" href="/static/style.css">
+
+  <!-- 카카오 지도 JavaScript SDK -->
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{ kakao_js_key }}"></script>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>치과 개원 입지분석 대시보드</h1>
+      <p>주소를 입력하면 후보지 좌표를 변환하고 지도에 반경을 표시합니다.</p>
+    </header>
+
+    <section class="search-panel">
+      <input
+        id="address-input"
+        type="text"
+        placeholder="예: 서울특별시 강남구 테헤란로 152"
+        value="서울특별시 강남구 테헤란로 152"
+      >
+
+      <button id="search-button">주소 검색</button>
+
+      <select id="radius-select">
+        <option value="300">반경 300m</option>
+        <option value="500" selected>반경 500m</option>
+        <option value="1000">반경 1km</option>
+        <option value="1500">반경 1.5km</option>
+      </select>
+    </section>
+
+    <section id="suggestion-panel" class="suggestion-panel">
+      <div class="suggestion-title">주소 후보</div>
+      <div id="suggestion-list" class="suggestion-list">
+        주소를 입력하면 후보 주소가 표시됩니다.
+      </div>
+    </section>
+
+    <section class="result-panel">
+      <div>
+        <strong>위도</strong>
+        <span id="lat-text">-</span>
+      </div>
+
+      <div>
+        <strong>경도</strong>
+        <span id="lng-text">-</span>
+      </div>
+
+      <div>
+        <strong>검색 주소</strong>
+        <span id="address-text">-</span>
+      </div>
+    </section>
+
+    <section class="analysis-panel">
+      <div class="metric-card">
+        <div class="metric-title">반경 내 치과 수</div>
+        <div class="metric-value" id="dentist-count">-</div>
+        <div class="metric-desc" id="dentist-count-desc">
+          주소를 선택하면 자동 계산됩니다.
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">검색 반경</div>
+        <div class="metric-value" id="selected-radius-text">500m</div>
+        <div class="metric-desc">
+          현재 선택된 후보지 기준 반경입니다.
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-title">제외된 항목</div>
+        <div class="metric-value" id="excluded-count">-</div>
+        <div class="metric-desc">
+          치과가 아닌 검색 결과는 제외합니다.
+        </div>
+      </div>
+
+            <div class="metric-card">
+        <div class="metric-title">경쟁강도</div>
+        <div class="metric-value" id="competition-level">-</div>
+        <div class="metric-desc" id="competition-desc">
+          반경 내 치과 수를 기준으로 경쟁강도를 판정합니다.
+        </div>
+      </div>
+    </section>
+
+    <section class="dentist-panel">
+      <div class="dentist-panel-header">
+        <h2>반경 내 치과 목록</h2>
+        <span id="dentist-list-summary">
+          주소를 선택하면 목록이 표시됩니다.
+        </span>
+      </div>
+
+      <div id="dentist-list" class="dentist-list">
+        아직 조회된 치과가 없습니다.
+      </div>
+    </section>
+
+    <section class="map-section">
+      <div id="map"></div>
+    </section>
+  </div>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
